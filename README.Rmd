@@ -27,6 +27,7 @@ The package includes:
 - `renewable_residuals` – daily residuals for 26 European renewable-energy firms (2017–2025)
 
 ```{r, include = FALSE}
+devtools::load_all()
 # Global knitr options: make figures show on GitHub
 knitr::opts_chunk$set(
   collapse = TRUE,
@@ -48,11 +49,6 @@ library(QuantileConnectedness)   # <- replace with your package name if differen
 ---
 
 ### Full-sample R² connectedness (q = 0.05, nlag = 1)
-
-```{r, include = FALSE}
-# Load package code directly from your development folder
-devtools::load_all()
-```
 
 ```{r}
 library(ConnectednessApproach)

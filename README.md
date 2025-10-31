@@ -1,18 +1,31 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
+## About the Method
+
+The methodology implemented in this package is developed in the
+following research paper, currently submitted:
+
+> **Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025).**  
+> *Systemic Risk in the Tails: Contemporaneous Transmission and
+> Spillover Dynamics in European Renewable Energy Equities.*  
+> Submitted for publication.
+
+The package implements the quantile-based R² connectedness framework
+introduced in the above paper.  
+When citing results derived using this code, please cite the paper once
+published and this R package.
+
 # QuantileConnectedness
 
 **QuantileConnectedness** provides tools to compute, decompose, and
-visualize  
-R² decomposed connectedness measures based on **quantile correlation
-coefficients**  
-(Choi & Shin, 2022), extending the approaches of Hoang & Baur (2022) and
-Balli et al. (2023).
+visualize R² decomposed connectedness measures based on **quantile
+correlation coefficients** (Choi & Shin, 2022), extending the approaches
+of Hoang & Baur (2022) and Balli et al. (2023).
 
 The package includes:
 
-- `Qcor()` / `Qcor_fast()` – quantile correlation matrices  
+- `Qcor()` – quantile correlation matrices  
 - `R2ConnectednessQ()` – R² decomposed connectedness (full sample or
   rolling)  
 - `net_plot()` – network visualization (PMFG or thresholded)  
@@ -20,8 +33,6 @@ The package includes:
   renewable-energy firms (2017–2025)
 
 ## Installation
-
-Install after publishing to GitHub:
 
 ``` r
 # install.packages("devtools")
@@ -35,9 +46,14 @@ library(QuantileConnectedness)   # <- replace with your package name if differen
 
 ``` r
 library(ConnectednessApproach)
+#> Warning: package 'ConnectednessApproach' was built under R version 4.4.3
+#> 
+#> Please cite as:
+#>  Gabauer, David (2022). ConnectednessApproach.
+#>  R package version 1.0.0. https://CRAN.R-project.org/package=ConnectednessApproach
 R2conL <- R2ConnectednessQ(
   renewable_residuals,
-  window.size = NULL,    # full sample
+  window.size = NULL,    
   nlag = 1,
   quantile = TRUE,
   q = 0.05,
@@ -47,7 +63,7 @@ R2conL <- R2ConnectednessQ(
 )
 ```
 
-### Network plots (Overall / Contemporaneous / Lagged)
+### Figure 1. Lower-tail R2 decomposed connectedness networks among European enewable energy firms
 
 We first need to set the node labels and group firms into their sectors.
 
@@ -63,7 +79,21 @@ groups <- list(Renewable = 1:7,
 ``` r
 go <- net_plot(
   R2conL$TABLE$Overall, Cnames,
-  use_pmfg = FALSE, layout = "spring",
+  layout = "spring",
+  groups = groups, div = 5,
+  node.size = 35, edge = 3,
+  pie.colour = c("black","white")
+)
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+#### Network plot - Contemporaneous connectedness
+
+``` r
+gc <- net_plot(
+  R2conL$TABLE$Contemporaneous, Cnames,
+  layout = "spring",
   groups = groups, div = 5,
   node.size = 35, edge = 3,
   pie.colour = c("black","white")
@@ -72,49 +102,23 @@ go <- net_plot(
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
-``` r
-plot(go)
-```
-
-#### Network plot - Contemporaneous connectedness
-
-``` r
-gc <- net_plot(
-  R2conL$TABLE$Contemporaneous, Cnames,
-  use_pmfg = FALSE, layout = "spring",
-  groups = groups, div = 5,
-  node.size = 35, edge = 3,
-  pie.colour = c("black","white")
-)
-```
-
-<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
-
-``` r
-plot(gc)
-```
-
 #### Network plot - Lag connectedness
 
 ``` r
 gl <- net_plot(
   R2conL$TABLE$Lagged, Cnames,
-  use_pmfg = FALSE, layout = "spring",
+  layout = "spring",
   groups = groups, div = 8,
   node.size = 35, edge = 2,
   pie.colour = c("black","white")
 )
 ```
 
-<img src="man/figures/README-unnamed-chunk-7-1.png" width="100%" />
-
-``` r
-plot(gl)
-```
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
 ------------------------------------------------------------------------
 
-## Rolling-window connectedness + TCI plot (evaluates here on 5 firms)
+## Figure 2. Time-varying lower tail total connectedness index among European renewable energy companies
 
 For dynamics we use a 200-day window on the 5-firm subset (fast enough
 to render).
@@ -183,18 +187,22 @@ g_tci <- ggplot(df, aes(x = date)) +
 g_tci
 ```
 
-<img src="man/figures/README-unnamed-chunk-10-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
 ------------------------------------------------------------------------
 
 ## References
 
-- Hoang, T. H. V., & Baur, D. G. (2022). *R² Connectedness: Measuring
-  Integration and Contagion in Financial Markets.* Journal of Financial
-  Econometrics, 20(3), 520–544.  
 - Balli, F., Balli, H. O., Louis, R. J., & Pappas, V. (2023). *Dynamic
   Connectedness Across Markets: Revisiting the R² Approach.* Finance
   Research Letters, 56, 104263.  
 - Choi, S., & Shin, S. (2022). *Quantile Correlation: Measuring
   Dependence at Different Quantiles.* Journal of Econometrics, 226(1),
   1–24.
+- Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025).
+  *Systemic Risk in the Tails: Contemporaneous Transmission and
+  Spillover Dynamics in European Renewable Energy Equities.* Submitted
+  for publication.
+- Hoang, T. H. V., & Baur, D. G. (2022). *R² Connectedness: Measuring
+  Integration and Contagion in Financial Markets.* Journal of Financial
+  Econometrics, 20(3), 520–544.
