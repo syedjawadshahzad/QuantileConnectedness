@@ -6,7 +6,9 @@ output: github_document
 
 ## About the Method
 
-The methodology implemented in this package is developed in the following research paper, currently submitted:
+The methodology implemented in this package is developed in Ferrer et al. (2025). Traditional connectedness models (Diebold & Yilmaz, 2012) capture interdependence at the mean, overlooking asymmetries in how shocks propagate. Likewise, standard quantile-based methods (e.g., Ando et al., 2022) focus on average shocks affecting conditional quantiles rather than direct tail interactions.
+
+The proposed framework directly models tail-to-tail spillovers, offering a more accurate representation of asymmetric interdependence. This design mitigates the upward bias found in some quantile connectedness indices (Caporin et al., 2023).
 
 > **Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025).**  
 > *Systemic Risk in the Tails: Contemporaneous Transmission and Spillover Dynamics in European Renewable Energy Equities.*  Submitted for publication.
@@ -15,7 +17,7 @@ Please cite the paper once published and this R package.
 
 # Quantile Connectedness
 
-**QuantileConnectedness** provides tools to compute, decompose, and visualize R² decomposed connectedness measures based on **quantile correlation coefficients** (Choi & Shin, 2022), extending the approaches of Hoang & Baur (2022) and Balli et al. (2023).
+**QuantileConnectedness** provides tools to compute, decompose, and visualize R² decomposed connectedness measures based on **quantile correlation coefficients** (Choi & Shin, 2022), extending the approaches of Baur & Hoang (2023) and Balli et al. (2023).
 
 The package includes:
 
@@ -105,8 +107,7 @@ gl <- net_plot(
 )
 ```
 
-Notes: This figure plots the R2-decomposed connectedness networks among the stock returns of European renewable energy companies at the lower tail of the return distribution (τ = 0.05). The networks are constructed based on the overall connectedness, as well as its contemporaneous and lagged components. A total of 26 European renewable energy companies, belonging to the wind energy, solar energy, and renewable fuel sub-sectors, are considered. Each node represents a company, while edges denote return spillovers between firms. Node size is proportional to the sum of TO and FROM spillovers of that node with all others. The aureole color around nodes  differentiates net transmitters (black) from net receivers (white) of spillovers. Furthermore, the node color corresponds to sub-sector classifications. Specifically, green nodes indicate wind energy companies, while blue and orange nodes represent
-solar energy and renewable fuels companies, respectively. The arrow’s orientation indicates the direction of return spillovers, and arrow thickness represents spillover intensity. To enhance interpretability, only the top 20% largest values of pairwise spillovers are displayed.
+Notes: This figure plots the R2-decomposed connectedness networks among the stock returns of European renewable energy companies at the lower tail of the return distribution (τ = 0.05). The networks are constructed based on the overall connectedness, as well as its contemporaneous and lagged components. A total of 26 European renewable energy companies, belonging to the wind energy, solar energy, and renewable fuel sub-sectors, are considered. Each node represents a company, while edges denote return spillovers between firms. Node size is proportional to the sum of TO and FROM spillovers of that node with all others. The aureole color around nodes  differentiates net transmitters (black) from net receivers (white) of spillovers. Furthermore, the node color corresponds to sub-sector classifications. Specifically, green nodes indicate wind energy companies, while blue and orange nodes represent solar energy and renewable fuels companies, respectively. The arrow’s orientation indicates the direction of return spillovers, and arrow thickness represents spillover intensity. To enhance interpretability, only the top 20% largest values of pairwise spillovers are displayed.
 
 ---
 
@@ -115,14 +116,14 @@ solar energy and renewable fuels companies, respectively. The arrow’s orientat
 
 ```{r , eval=FALSE}
 dca <- R2ConnectednessQ(
-  renewable_residuals[,1:5],
+  renewable_residuals,
   window.size = 200,
   nlag = 1,
   quantile = TRUE,
   q = 0.05,
   method = "pearson",
   shrink = TRUE,
-  progbar = FALSE
+  progbar = TRUE
 )
 ```
 
@@ -190,8 +191,12 @@ Coming soon ...
 
 ## References
 
-- Balli, F., Balli, H. O., Louis, R. J., & Pappas, V. (2023). *Dynamic Connectedness Across Markets: Revisiting the R² Approach.* Finance Research Letters, 56, 104263.  
+- Ando, T., Greenwood-Nimmo, M. and Shin, Y. (2022). *Quantile connectedness: Modelling tail behaviour in the topology of financial networks.* Management Science, 68(4), 2401-2431.
+- Balli, F., Balli, H. O., Dang, T. H. N., & Gabauer, D. (2023). *Contemporaneous and lagged R2 decomposed connectedness approach: New evidence from the energy futures market.* Finance Research Letters, 57, 104168. 
+- Baur, D. G., & Hoang, L. T. (2023). *A Simple Model to Estimate Spillovers and Correlations.* Available at SSRN 4372392.
+- Caporin, M., Bonaccolto, G. and Shahzad, S.J.H. (2023). *(Quantile) Spillover Indexes: Simulation-based evidence, confidence intervals and a decomposition.* Forthcoming - Journal of Financial Econometrics. Available at SSRN: https://ssrn.com/abstract=4629224. 
 - Choi, S., & Shin, S. (2022). *Quantile Correlation: Measuring Dependence at Different Quantiles.* Journal of Econometrics, 226(1), 1–24.
+- Diebold, F.X. and Yilmaz, K. (2012). *Better to give than to receive: Predictive directional measurement of volatility spillovers.* International Journal of Forecasting, 28(1), 57-66.
 - Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025). *Systemic Risk in the Tails: Contemporaneous Transmission and Spillover Dynamics in European Renewable Energy Equities.*
-- Hoang, T. H. V., & Baur, D. G. (2022). *R² Connectedness: Measuring Integration and Contagion in Financial Markets.* Journal of Financial Econometrics, 20(3), 520–544.  
+
 

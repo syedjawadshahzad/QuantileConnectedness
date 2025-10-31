@@ -60,7 +60,7 @@ A list containing:
 }
 }
 \description{
-Extends the R² decomposed connectedness framework of Hoang and Baur (2022)
+Extends the R² decomposed connectedness framework of Baur and Hoang (2023)
 and Balli et al. (2023) by incorporating the \strong{quantile correlation coefficient}
 proposed by Choi and Shin (2022).
 The function quantifies total, directional, and net connectedness in a multivariate
@@ -69,7 +69,7 @@ lower- or upper-tail dependence).
 }
 \details{
 This function generalizes the R² decomposed connectedness approach developed by
-Hoang & Baur (2022) and Balli et al. (2023). Instead of traditional correlations,
+Baur & Hoang (2023) and Balli et al. (2023). Instead of traditional correlations,
 it employs quantile correlations of Choi and Shin (2022) to measure
 dependence between variables at specific quantiles.
 
@@ -99,13 +99,13 @@ res$TCI
 Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025).
 \emph{Systemic Risk in the Tails: Contemporaneous Transmission and Spillover Dynamics in European Renewable Energy Equities.}
 
-Hoang, T. H. V., & Baur, D. G. (2022).
-\emph{R² Connectedness: Measuring Integration and Contagion in Financial Markets}.
-Journal of Financial Econometrics, 20(3), 520–544.
+Baur, D. G., & Hoang, L. T. (2023).
+\emph{A Simple Model to Estimate Spillovers and Correlations.}
+Available at SSRN 4372392.
 
-Balli, F., Balli, H. O., Louis, R. J., & Pappas, V. (2023).
-\emph{Dynamic Connectedness Across Markets: Revisiting the R² Approach}.
-Finance Research Letters, 56, 104263.
+Balli, F., Balli, H. O., Dang, T. H. N., & Gabauer, D. (2023).
+\emph{Contemporaneous and lagged R2 decomposed connectedness approach: New evidence from the energy futures market.}
+Finance Research Letters, 57, 104168.
 
 Choi, S., & Shin, S. (2022).
 \emph{Quantile Correlation: Measuring Dependence at Different Quantiles}.
