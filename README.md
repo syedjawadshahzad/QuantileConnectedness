@@ -238,9 +238,8 @@ Coming soon …
   Spillover Indexes: Simulation-based evidence, confidence intervals and
   a decomposition.* Forthcoming - Journal of Financial Econometrics.
   Available at SSRN: <https://ssrn.com/abstract=4629224>.
-- Choi, S., & Shin, S. (2022). *Quantile Correlation: Measuring
-  Dependence at Different Quantiles.* Journal of Econometrics, 226(1),
-  1–24.
+- Choi, J. E., & Shin, D. W. (2022). *Quantile correlation coefficient:
+  a new tail dependence measure.* Statistical Papers, 63(4), 1075-1104.
 - Diebold, F.X. and Yilmaz, K. (2012). *Better to give than to receive:
   Predictive directional measurement of volatility spillovers.*
   International Journal of Forecasting, 28(1), 57-66.

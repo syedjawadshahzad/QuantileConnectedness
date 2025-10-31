@@ -67,9 +67,9 @@
 #' *Contemporaneous and lagged R2 decomposed connectedness approach: New evidence from the energy futures market.* 
 #' Finance Research Letters, 57, 104168.
 #'
-#' Choi, S., & Shin, S. (2022).
-#' *Quantile Correlation: Measuring Dependence at Different Quantiles*.
-#' Journal of Econometrics, 226(1), 1–24. 
+#' Choi, J. E., & Shin, D. W. (2022). 
+#' *Quantile correlation coefficient: a new tail dependence measure.* 
+#' Statistical Papers, 63(4), 1075-1104.
 #'
 #' @examples
 #' \dontrun{
