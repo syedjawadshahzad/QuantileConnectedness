@@ -18,3 +18,5 @@ Imports:
 Depends: 
     R (>= 3.5)
 LazyData: true
+URL: https://github.com/syedjawadshahzad/QuantileConnectedness
+BugReports: https://github.com/syedjawadshahzad/QuantileConnectedness/issues
