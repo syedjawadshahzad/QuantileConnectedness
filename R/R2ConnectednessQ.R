@@ -77,6 +77,8 @@
 #' res$TCI
 #' }
 #'
+#' 
+#' @importFrom ConnectednessApproach ConnectednessTable
 #' @importFrom corpcor cor.shrink
 #' @importFrom MASS ginv
 #' @import zoo

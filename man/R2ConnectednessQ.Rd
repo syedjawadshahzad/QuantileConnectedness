@@ -93,6 +93,7 @@ res <- R2ConnectednessQ(dy2012, window.size = 200, q = 0.1)
 res$TCI
 }
 
+
 }
 \references{
 Hoang, T. H. V., & Baur, D. G. (2022).

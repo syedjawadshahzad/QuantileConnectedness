@@ -1,47 +1,41 @@
 #' Network Plot of Connectedness
 #'
-#' Draws a network graph from a connectedness matrix, optionally filtered by the
-#' Planar Maximally Filtered Graph (PMFG). Node sizes reflect total connectivity,
-#' and node pies show the share of "FROM" vs "TO" connectivity.
+#' Draws a network graph from a connectedness matrix. Node sizes reflect total connectivity,
+#' and node pies show the share of "FROM" vs "TO" connectivity. Edges are thresholded to keep
+#' the top \eqn{p^2 / \mathrm{div}} strongest links.
 #'
 #' @param x A square connectedness matrix with the last row/column possibly containing totals.
 #'   The function uses the top-left \eqn{p \times p} block where \eqn{p = ncol(x) - 1}.
 #' @param Cnames Character vector of node labels (length \eqn{p}).
-#' @param use_pmfg Logical; if \code{TRUE}, apply \code{\link[NetworkToolbox]{PMFG}}
-#'   to the normalized matrix before plotting. Default \code{TRUE}.
-#' @param layout Character; passed to \code{\link[qgraph]{qgraph}}. Common options:
-#'   \code{"circle"} (default when \code{use_pmfg = FALSE}) or \code{"spring"}.
-#'   Ignored if \code{use_pmfg = TRUE} (PMFG supplies the graph structure).
-#' @param groups Optional vector/list of group memberships (for node coloring in \code{qgraph}).
-#' @param div Positive number controlling edge thresholding when \code{use_pmfg = FALSE}.
-#'   Larger values keep fewer edges (top \eqn{p^2/div}). Default \code{5}.
+#' @param layout Character layout passed to \code{\link[qgraph]{qgraph}}; e.g., \code{"circle"} or \code{"spring"}.
+#'   Default \code{"circle"}.
+#' @param groups Optional vector/list of group memberships for node coloring in \code{qgraph}.
+#' @param div Positive number controlling edge thresholding; larger values keep fewer edges
+#'   (top \eqn{p^2/div}). Default \code{5}.
 #' @param node.size Base node size multiplier. Default \code{20}.
 #' @param edge Base edge width (passed to \code{qgraph} as \code{esize} and \code{asize}). Default \code{3}.
-#' @param pie.colour Length-2 character vector for the pie colors (FROM, TO). Default \code{c("red","yellow")}.
+#' @param pie.colour Length-2 character vector for the pie colors (FROM, TO).
+#'   Default \code{c("red","yellow")}.
 #'
 #' @details
 #' The function normalizes the \eqn{p \times p} connectivity matrix by its sum, sets
 #' the diagonal to zero, computes node sizes as the normalized sum of in- and out-going
 #' strengths, and constructs a two-slice pie per node where the first slice is
-#' the "FROM" share and the second is the "TO" share.
+#' the "FROM" share and the second is the "TO" share. Edges are retained by
+#' applying a numeric threshold equal to the \eqn{(p^2/\mathrm{div})}-th largest weight.
 #'
-#' If \code{use_pmfg = TRUE}, edges are filtered via the PMFG and \code{layout} is ignored.
-#' Otherwise, the top \eqn{p^2/div} edges (by weight) are retained via \code{qgraph}'s
-#' \code{threshold} argument.
-#'
-#' @return A \code{qgraph} object (invisibly prints the plot).
+#' @return A \code{qgraph} object (plot is drawn as a side-effect).
 #'
 #' @examples
 #' \dontrun{
 #' # Suppose 'TAB' is a connectedness TABLE with p+1 rows/cols (last is totals)
 #' # and 'labs' is a character vector of length p:
-#' g <- net_plot(TAB, Cnames = labs, use_pmfg = FALSE, layout = "circle")
+#' g <- net_plot(TAB, Cnames = labs, layout = "spring")
 #' }
 #'
 #' @importFrom qgraph qgraph
-#' @importFrom NetworkToolbox PMFG
 #' @export
-net_plot <- function(x, Cnames, use_pmfg = TRUE, layout = "circle",
+net_plot <- function(x, Cnames, layout = "circle",
                      groups = NULL, div = 5, node.size = 20, edge = 3,
                      pie.colour = c("red", "yellow")) {
 
@@ -58,24 +52,13 @@ net_plot <- function(x, Cnames, use_pmfg = TRUE, layout = "circle",
   if (s <= 0) stop("Sum of connectivity is non-positive.")
   W <- con / s
 
-  # PMFG branch
-  if (isTRUE(use_pmfg)) {
-    net <- NetworkToolbox::PMFG(W)  # adjacency with PMFG edges
-    thr <- NULL
-    lay <- NULL
-  } else {
-    net <- W
-    # keep top p^2/div edges; compute numeric threshold safely
-    k <- max(1L, ceiling((p * p) / div))
-    thr <- sort(as.vector(W), decreasing = TRUE, na.last = NA)[k]
-    lay <- layout
-  }
+  # threshold: keep top p^2/div edges
+  k <- max(1L, ceiling((p * p) / div))
+  thr <- sort(as.vector(W), decreasing = TRUE, na.last = NA)[k]
 
   # node sizes (sum out + in), normalized
   Nsize <- rowSums(con, na.rm = TRUE) + colSums(con, na.rm = TRUE)
-  if (all(Nsize == 0)) {
-    Nsize[] <- 1
-  }
+  if (all(Nsize == 0)) Nsize[] <- 1
   Nsize <- Nsize / sum(Nsize)
 
   # pies: FROM vs TO shares
@@ -86,8 +69,8 @@ net_plot <- function(x, Cnames, use_pmfg = TRUE, layout = "circle",
   n1[!is.finite(n1)] <- 0
 
   g <- qgraph::qgraph(
-    net,
-    layout      = lay,
+    W,
+    layout      = layout,
     groups      = groups,
     repulsion   = 0.8,
     palette     = "colorblind",

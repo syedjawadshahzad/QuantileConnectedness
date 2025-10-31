@@ -83,7 +83,7 @@ groups <- list(Renewable = 1:7,
 ```{r fig.height=6, fig.width=6}
 go <- net_plot(
   R2conL$TABLE$Overall, Cnames,
-  use_pmfg = FALSE, layout = "spring",
+  layout = "spring",
   groups = groups, div = 5,
   node.size = 35, edge = 3,
   pie.colour = c("black","white")
@@ -94,7 +94,7 @@ go <- net_plot(
 ```{r fig.height=6, fig.width=6}
 gc <- net_plot(
   R2conL$TABLE$Contemporaneous, Cnames,
-  use_pmfg = FALSE, layout = "spring",
+  layout = "spring",
   groups = groups, div = 5,
   node.size = 35, edge = 3,
   pie.colour = c("black","white")
@@ -106,7 +106,7 @@ gc <- net_plot(
 ```{r fig.height=6, fig.width=6}
 gl <- net_plot(
   R2conL$TABLE$Lagged, Cnames,
-  use_pmfg = FALSE, layout = "spring",
+  layout = "spring",
   groups = groups, div = 8,
   node.size = 35, edge = 2,
   pie.colour = c("black","white")
