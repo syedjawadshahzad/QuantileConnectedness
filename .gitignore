@@ -1,4 +1,12 @@
-.Rproj.user
+.Rproj.user/
+.Rhistory
+.RData
+.quarto/
+README_cache/
+README_files/
+README.html
+.DS_Store
+
 
 /.quarto/
 .Rhistory
@@ -6,3 +14,4 @@
 .httr-oauth
 .DS_Store
 .quarto
+
