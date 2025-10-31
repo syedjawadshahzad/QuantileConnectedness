@@ -8,17 +8,17 @@
 #' @param x A numeric matrix or data frame (columns represent variables).
 #' @param q Numeric in `[0, 1]`; the quantile level at which the quantile correlation is evaluated.
 #'
-#' @return A symmetric numeric matrix of dimension `ncol(x) × ncol(x)`:
+#' @return A symmetric numeric matrix of dimension `ncol(x)` by `ncol(x)`:
 #' \itemize{
 #'   \item Diagonal elements are equal to 1.
 #'   \item Off-diagonal elements are pairwise quantile correlations.
 #' }
 #'
 #' @details
-#' For two variables \(X\) and \(Y\), the quantile correlation at level \(q\)
+#' For two variables \eqn{X} and \eqn{Y}, the quantile correlation at level \eqn{q}
 #' is based on the product of the quantile regression slopes from
-#' \(Y \sim X\) and \(X \sim Y\) at quantile \(q\).
-#' The sign is taken from the \(Y \sim X\) regression slope, and the
+#' \eqn{Y \sim X} and \eqn{X \sim Y} at quantile \eqn{q}.
+#' The sign is taken from the \eqn{Y \sim X} regression slope, and the
 #' result is truncated to keep the correlation within \eqn{[-1, 1]}.
 #'
 #' @examples
@@ -38,6 +38,7 @@
 #'
 #' @importFrom quantreg rq
 #' @export
+
 Qcor <- function(x, q){
   names <- colnames(x)
   corQ <- matrix(NA, ncol=dim(x)[2], nrow=dim(x)[2])

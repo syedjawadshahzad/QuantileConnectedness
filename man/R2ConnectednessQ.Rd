@@ -70,7 +70,7 @@ lower- or upper-tail dependence).
 \details{
 This function generalizes the R² decomposed connectedness approach developed by
 Hoang & Baur (2022) and Balli et al. (2023). Instead of traditional correlations,
-it employs quantile correlations \insertCite{ChoiShin2022}{yourpkg} to measure
+it employs quantile correlations of Choi and Shin (2022) to measure
 dependence between variables at specific quantiles.
 
 Internally, the function:
@@ -96,6 +96,9 @@ res$TCI
 
 }
 \references{
+Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025).
+\emph{Systemic Risk in the Tails: Contemporaneous Transmission and Spillover Dynamics in European Renewable Energy Equities.}
+
 Hoang, T. H. V., & Baur, D. G. (2022).
 \emph{R² Connectedness: Measuring Integration and Contagion in Financial Markets}.
 Journal of Financial Econometrics, 20(3), 520–544.
@@ -106,5 +109,5 @@ Finance Research Letters, 56, 104263.
 
 Choi, S., & Shin, S. (2022).
 \emph{Quantile Correlation: Measuring Dependence at Different Quantiles}.
-Journal of Econometrics, 226(1), 1–24. \doi{10.1016/j.jeconom.2021.08.001}
+Journal of Econometrics, 226(1), 1–24.
 }

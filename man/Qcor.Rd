@@ -12,7 +12,7 @@ Qcor(x, q)
 \item{q}{Numeric in \verb{[0, 1]}; the quantile level at which the quantile correlation is evaluated.}
 }
 \value{
-A symmetric numeric matrix of dimension \verb{ncol(x) × ncol(x)}:
+A symmetric numeric matrix of dimension \code{ncol(x)} by \code{ncol(x)}:
 \itemize{
 \item Diagonal elements are equal to 1.
 \item Off-diagonal elements are pairwise quantile correlations.
@@ -25,10 +25,10 @@ This allows users to examine dependence between variables at specific quantiles 
 median, or upper-tail dependence) rather than only at the mean.
 }
 \details{
-For two variables \(X\) and \(Y\), the quantile correlation at level \(q\)
+For two variables \eqn{X} and \eqn{Y}, the quantile correlation at level \eqn{q}
 is based on the product of the quantile regression slopes from
-\(Y \sim X\) and \(X \sim Y\) at quantile \(q\).
-The sign is taken from the \(Y \sim X\) regression slope, and the
+\eqn{Y \sim X} and \eqn{X \sim Y} at quantile \eqn{q}.
+The sign is taken from the \eqn{Y \sim X} regression slope, and the
 result is truncated to keep the correlation within \eqn{[-1, 1]}.
 }
 \examples{
