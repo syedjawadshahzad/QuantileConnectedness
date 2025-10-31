@@ -8,15 +8,12 @@ following research paper, currently submitted:
 
 > **Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025).**  
 > *Systemic Risk in the Tails: Contemporaneous Transmission and
-> Spillover Dynamics in European Renewable Energy Equities.*  
-> Submitted for publication.
+> Spillover Dynamics in European Renewable Energy Equities.* Submitted
+> for publication.
 
-The package implements the quantile-based R² connectedness framework
-introduced in the above paper.  
-When citing results derived using this code, please cite the paper once
-published and this R package.
+Please cite the paper once published and this R package.
 
-# QuantileConnectedness
+# Quantile Connectedness
 
 **QuantileConnectedness** provides tools to compute, decompose, and
 visualize R² decomposed connectedness measures based on **quantile
@@ -36,21 +33,18 @@ The package includes:
 
 ``` r
 # install.packages("devtools")
-devtools::install_github("yourusername/QuantileConnectedness")
-library(QuantileConnectedness)   # <- replace with your package name if different
+devtools::install_github("https://github.com/syedjawadshahzad/QuantileConnectedness")
+library(QuantileConnectedness)   
 ```
 
 ------------------------------------------------------------------------
 
-### Full-sample R² connectedness (q = 0.05, nlag = 1)
+## Figure 1. Lower-tail R2 decomposed connectedness networks among European enewable energy firms
+
+## Full-sample R² connectedness (q = 0.05, nlag = 1)
 
 ``` r
-library(ConnectednessApproach)
-#> Warning: package 'ConnectednessApproach' was built under R version 4.4.3
-#> 
-#> Please cite as:
-#>  Gabauer, David (2022). ConnectednessApproach.
-#>  R package version 1.0.0. https://CRAN.R-project.org/package=ConnectednessApproach
+#library(ConnectednessApproach)
 R2conL <- R2ConnectednessQ(
   renewable_residuals,
   window.size = NULL,    
@@ -63,8 +57,6 @@ R2conL <- R2ConnectednessQ(
 )
 ```
 
-### Figure 1. Lower-tail R2 decomposed connectedness networks among European enewable energy firms
-
 We first need to set the node labels and group firms into their sectors.
 
 ``` r
@@ -74,7 +66,7 @@ groups <- list(Renewable = 1:7,
                Wind = 16:26)
 ```
 
-#### Network plot - Overall connectedness
+### Network plot - Overall connectedness
 
 ``` r
 go <- net_plot(
@@ -88,7 +80,7 @@ go <- net_plot(
 
 <img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
 
-#### Network plot - Contemporaneous connectedness
+### Network plot - Contemporaneous connectedness
 
 ``` r
 gc <- net_plot(
@@ -102,7 +94,7 @@ gc <- net_plot(
 
 <img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
 
-#### Network plot - Lag connectedness
+### Network plot - Lag connectedness
 
 ``` r
 gl <- net_plot(
@@ -116,12 +108,25 @@ gl <- net_plot(
 
 <img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />
 
-------------------------------------------------------------------------
+Notes: This figure plots the R2-decomposed connectedness networks among
+the stock returns of European renewable energy companies at the lower
+tail of the return distribution (τ = 0.05). The networks are constructed
+based on the overall connectedness, as well as its contemporaneous and
+lagged components. A total of 26 European renewable energy companies,
+belonging to the wind energy, solar energy, and renewable fuel
+sub-sectors, are considered. Each node represents a company, while edges
+denote return spillovers between firms. Node size is proportional to the
+sum of TO and FROM spillovers of that node with all others. The aureole
+color around nodes differentiates net transmitters (black) from net
+receivers (white) of spillovers. Furthermore, the node color corresponds
+to sub-sector classifications. Specifically, green nodes indicate wind
+energy companies, while blue and orange nodes represent solar energy and
+renewable fuels companies, respectively. The arrow’s orientation
+indicates the direction of return spillovers, and arrow thickness
+represents spillover intensity. To enhance interpretability, only the
+top 20% largest values of pairwise spillovers are displayed. —
 
 ## Figure 2. Time-varying lower tail total connectedness index among European renewable energy companies
-
-For dynamics we use a 200-day window on the 5-firm subset (fast enough
-to render).
 
 ``` r
 dca <- R2ConnectednessQ(
@@ -134,15 +139,18 @@ dca <- R2ConnectednessQ(
   shrink = TRUE,
   progbar = FALSE
 )
+```
+
+``` r
 TCI <- dca$TCI
 head(TCI)
 #>             Overall Contemporaneous   Lagged
-#> 2017-10-13 15.94088        11.87311 4.067770
-#> 2017-10-16 15.65963        11.69132 3.968305
-#> 2017-10-17 15.65698        11.68220 3.974778
-#> 2017-10-18 15.96980        11.68576 4.284041
-#> 2017-10-19 14.53213        11.14634 3.385783
-#> 2017-10-20 16.28941        11.64794 4.641471
+#> 2017-10-13 32.22726        18.19967 14.02759
+#> 2017-10-16 32.01338        17.85045 14.16293
+#> 2017-10-17 33.20749        18.55386 14.65363
+#> 2017-10-18 33.07309        18.35836 14.71473
+#> 2017-10-19 32.60456        18.13507 14.46949
+#> 2017-10-20 32.78531        17.94757 14.83774
 ```
 
 ``` r
@@ -153,7 +161,7 @@ colnames(df) <- c("date", "SOI", "SOIC", "SOIL")
 ``` r
 library(ggplot2)
 
-ymin <- 0; ymax <- 40
+ymin <- 0; ymax <- 80
 
 mytheme <- theme(
   panel.background = element_rect(fill = "transparent"),
@@ -187,9 +195,22 @@ g_tci <- ggplot(df, aes(x = date)) +
 g_tci
 ```
 
-<img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
+<img src="man/figures/README-unnamed-chunk-11-1.png" width="100%" />
+
+Notes: This figure illustrates the time-varying overall total
+connectedness index (blue line), alongside its contemporaneous (green
+line) and lagged (red line) components, calculated at the extreme lower
+tail (τ = 0.05) among European renewable energy companies. The analysis
+spans from January 2, 2017, to January 31, 2025. The total connectedness
+indices are computed using a rolling window length of 200 trading days
+with a lag=1. The dates on the x-axis correspond to the final day of
+each rolling window period.
 
 ------------------------------------------------------------------------
+
+## Portfolio Analysis
+
+Coming soon …
 
 ## References
 
@@ -201,8 +222,7 @@ g_tci
   1–24.
 - Ferrer, R., Shahzad, S. J. H., Furió, D., & Benammar, R. (2025).
   *Systemic Risk in the Tails: Contemporaneous Transmission and
-  Spillover Dynamics in European Renewable Energy Equities.* Submitted
-  for publication.
+  Spillover Dynamics in European Renewable Energy Equities.*
 - Hoang, T. H. V., & Baur, D. G. (2022). *R² Connectedness: Measuring
   Integration and Contagion in Financial Markets.* Journal of Financial
   Econometrics, 20(3), 520–544.

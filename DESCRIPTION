@@ -1,9 +1,9 @@
 Package: QuantileConnectedness
-Title: What the Package Does (One Line, Title Case)
+Title: Quantile-Based Connectedness Measures in Financial Markets
 Version: 0.0.0.9000
 Authors@R: 
     person("Jawad", "Shahzad", , "jawad.kazmi5@gmail.com", role = c("aut", "cre"))
-Description: What the package does (one paragraph).
+Description: Provides tools for quantile-based connectedness analysis in financial and economic time series. Implements the R2 decomposed connectedness approach extended with quantile correlation measures following Choi and Shin (2022), Hoang and Baur (2022), and Balli et al. (2023). Includes functions to compute static and rolling-window connectedness measures, visualize network structures, and analyze tail-dependence spillovers, with example data from European renewable energy firms.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
